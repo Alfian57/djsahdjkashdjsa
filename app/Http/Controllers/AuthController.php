@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 
 class AuthController extends Controller
 {
@@ -15,10 +16,20 @@ class AuthController extends Controller
 
     public function authenticate(LoginRequest $request)
     {
-        if ($request->email == "admin@admin.com" && $request->password == "523") {
-            return "Selamat Datang";
-        }
+        $request->validated();
+        return "Berhasil";
+    }
 
-        return "Maaf anda tidak bisa masuk";
+    public function register()
+    {
+        return view('pages.register', [
+            'title' => "Login"
+        ]);
+    }
+
+    public function store(RegisterRequest $request)
+    {
+        $request->validated();
+        return "Berhasil";
     }
 }

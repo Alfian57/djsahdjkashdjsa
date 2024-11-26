@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequest extends FormRequest
+class RegisterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +23,7 @@ class LoginRequest extends FormRequest
     {
         return [
             'email' => 'required|email',
-            'password' => 'required|min:6'
+            'password' => 'required|min:6|confirmed'
         ];
     }
 
@@ -33,7 +33,8 @@ class LoginRequest extends FormRequest
             'email.required' => 'Kolom email wajib diisi.',
             'email.email' => 'Email harus berupa alamat email yang valid.',
             'password.required' => 'Kolom kata sandi wajib diisi.',
-            'password.min' => 'Kata sandi harus terdiri dari minimal 6 karakter.'
+            'password.min' => 'Kata sandi harus terdiri dari minimal 6 karakter.',
+            'password.confirmed' => "Konfirmasi password salah"
         ];
     }
 }

@@ -13,6 +13,9 @@ Route::get('/', [DashboardController::class, 'index']);
 Route::get("/login", [AuthController::class, 'login']);
 Route::post("/login", [AuthController::class, 'authenticate']);
 
+Route::get("/register", [AuthController::class, 'register']);
+Route::post("/register", [AuthController::class, 'store']);
+
 Route::get("/create", [TestController::class, 'create']);
 Route::post("/simpan", [TestController::class, 'simpan']);
 
