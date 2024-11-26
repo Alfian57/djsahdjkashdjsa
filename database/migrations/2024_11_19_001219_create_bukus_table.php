@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('judul');
             $table->foreignId('id_penulis')->constrained('penulis');
-            $table->string('penerbit');
+            $table->foreignId('id_penerbit')->constrained('penerbit');
             $table->integer('tahun_terbit');
             $table->timestamps();
         });

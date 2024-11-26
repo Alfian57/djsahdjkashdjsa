@@ -17,4 +17,9 @@ class Buku extends Model
     {
         return $this->belongsTo(Penulis::class, 'id_penulis');
     }
+
+    public function penerbit(): BelongsTo
+    {
+        return $this->belongsTo(Penerbit::class, 'id_penerbit');
+    }
 }

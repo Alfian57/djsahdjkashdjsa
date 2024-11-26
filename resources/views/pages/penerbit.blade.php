@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Buku</title>
+    <title>Penulis</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
@@ -22,12 +22,12 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($buku as $item)
+                @foreach ($penerbit->buku as $item)
                     <tr>
                         <th scope="row">{{ $loop->iteration }}</th>
                         <td>{{ $item->judul }}</td>
                         <td>
-                            <a href="/penulis/{{ $item->penulis->id }}">{{ $item->penulis->nama }}</a>
+                            <a href="/penulis/{{ $item->id }}">{{ $item->penulis->nama }}</a>
                         </td>
                         <td>
                             <a href="/penerbit/{{ $item->id_penerbit }}">{{ $item->penerbit->nama }}</a>

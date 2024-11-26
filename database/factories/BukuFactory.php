@@ -19,7 +19,7 @@ class BukuFactory extends Factory
         return [
             'judul' => $this->faker->sentence(3),
             'id_penulis' => \App\Models\Penulis::factory(),
-            'penerbit' => $this->faker->company,
+            'id_penerbit' => \App\Models\Penerbit::factory(),
             'tahun_terbit' => $this->faker->year,
         ];
     }

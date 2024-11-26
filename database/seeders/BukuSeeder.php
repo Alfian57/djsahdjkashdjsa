@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Buku;
+use App\Models\Penerbit;
 use App\Models\Penulis;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -16,6 +17,7 @@ class BukuSeeder extends Seeder
     {
         Buku::factory(50)
             ->recycle(Penulis::factory(10)->create())
+            ->recycle(Penerbit::factory(10)->create())
             ->create();
     }
 }

@@ -4,6 +4,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TestController;
 use App\Models\Buku;
+use App\Models\Penerbit;
+use App\Models\Penulis;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DashboardController::class, 'index']);
@@ -95,6 +97,19 @@ Route::get("challenge3", function () {
 
 Route::get('buku', function () {
     return view('pages.buku', [
-        'buku' => Buku::with('penulis')->get()
+        'buku' => Buku::all()
+    ]);
+});
+
+Route::get('penulis/{penulis}', function (Penulis $penulis) {
+
+    return view('pages.penulis', [
+        'penulis' => $penulis,
+    ]);
+});
+
+Route::get('penerbit/{penerbit}', function (Penerbit $penerbit) {
+    return view('pages.penerbit', [
+        'penerbit' => $penerbit,
     ]);
 });
