@@ -3,10 +3,11 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TestController;
-use App\Models\Buku;
-use App\Models\Penerbit;
-use App\Models\Penulis;
+use App\Models\Mobil;
+use App\Models\Photo;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 Route::get('/', [DashboardController::class, 'index']);
 
@@ -22,97 +23,35 @@ Route::post("/simpan", [TestController::class, 'simpan']);
 Route::get("/create2", [TestController::class, 'createDua']);
 Route::post("/simpan2", [TestController::class, 'simpanDua']);
 
-Route::get("contoh", function () {
-    return view('pages.cth-content', [
-        'nim' => "5230411121",
-        "nama" => "Alfian Gading Saputra",
-        "status" => "Mahasiswa",
-        "matakuliah" => [
-            "Matematika",
-            "Fisika",
-            "Kimia",
-        ]
+Route::view('test-upload', 'pages.test-upload', [
+    'photos' => Photo::all()
+]);
+Route::post('save-upload', function (Request $request) {
+    Photo::create([
+        'nama' => $request->file('photo')->store('/', 'public')
     ]);
+    return redirect('/test-upload');
+});
+Route::get('delete/photo/{id}', function ($id) {
+    $photo = Photo::find($id);
+    Storage::disk('public')->delete($photo->nama);
+    $photo->delete();
+    return redirect('/test-upload');
 });
 
-Route::get("challenge1", function () {
-    return view("pages.challenge1", [
-        'title' => "Satu",
-        "mahasiswa" => [
-            [
-                "npm" => "5230411121",
-                "nama" => "Alfian",
-                "matakuliah" => [
-                    "Matematika",
-                    "KImia",
-                ],
-                'status_mahasiswa' => true,
-            ],
-            [
-                "npm" => "5230411122",
-                "nama" => "Gading",
-                "matakuliah" => [
-                    "Fisika",
-                    "KImia",
-                ],
-                'status_mahasiswa' => false
-            ]
-        ]
+Route::view('mobil', 'pages.mobil-upload', [
+    'mobil' => Mobil::all()
+]);
+Route::post('save-mobil', function (Request $request) {
+    Mobil::create([
+        'nama' => $request->nama,
+        'foto' => $request->file('foto')->store('/', 'public')
     ]);
+    return redirect('/mobil');
 });
-
-Route::get("chanllenge2", function () {
-    return view("pages.challenge2", [
-        'title' => "DUa",
-        "mahasiswa" => [
-            [
-                "npm" => "5230411121",
-                "nama" => "Alfian",
-                "matakuliah" => [
-                    "Matematika",
-                    "KImia",
-                ],
-                'status_mahasiswa' => true
-            ],
-            [
-                "npm" => "5230411122",
-                "nama" => "Gading",
-                "matakuliah" => [
-                    "Fisika",
-                    "KImia",
-                ],
-                'status_mahasiswa' => false
-            ]
-        ]
-    ]);
-});
-
-Route::get("challenge3", function () {
-    return view('pages.challenge3', [
-        "title" => "Tes",
-        "namaprodi" => [
-            "Informatika",
-            "Elektro",
-            "Industri"
-        ]
-    ]);
-});
-
-Route::get('buku', function () {
-    return view('pages.buku', [
-        'buku' => Buku::all()
-    ]);
-});
-
-Route::get('penulis/{penulis}', function (Penulis $penulis) {
-
-    return view('pages.penulis', [
-        'penulis' => $penulis,
-    ]);
-});
-
-Route::get('penerbit/{penerbit}', function (Penerbit $penerbit) {
-    return view('pages.penerbit', [
-        'penerbit' => $penerbit,
-    ]);
+Route::get('delete/mobil/{id}', function ($id) {
+    $mobil = Mobil::find($id);
+    Storage::disk('public')->delete($mobil->foto);
+    $mobil->delete();
+    return redirect('/mobil');
 });
